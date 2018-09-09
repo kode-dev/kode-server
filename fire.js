@@ -1,32 +1,61 @@
-const firebase = require('firebase')
+// Functionality:
+// - create user
+// - create Appointment
+// - create candidate
 
-var config = {
-  apiKey: "AIzaSyDBrzpaDsKEmNzqMX65WUqowtRaWVAITqI",
-  authDomain: "kode-dev-12dc0.firebaseapp.com",
-  databaseURL: "https://kode-dev-12dc0.firebaseio.com",
-  projectId: "kode-dev-12dc0",
-  storageBucket: "kode-dev-12dc0.appspot.com",
-  messagingSenderId: "372900376255"
-};
+    // user: {
+    //     firstName: 'John',
+    //     lastName: 'Appleseed',
+    //     email: 'john@poop.com',
+    //     organizationId: 123
+    // },
+    // candidate: {
+    //     firstName: 'Nguyen',
+    //     lastName: 'Jin',
+    //     email: 'abc@poop.com',
+    //     organizationId: 123
+    // },
+    // assessment: {
+    //     id: 'abcAssessment',
+    //     label: 'ABC Assessment',
+    //     description: 'This is to assess you.',
+    //     repoUrl: 'https://github.com'
+    // }
+    // appointment: {
+    //     id: '234',
+    //     candidate: 'abc@poop.com',
+    //     assessment: 'abcAssessment',
+    //     createdBy: 'john@poop.com',
+    //     start: 'August 24th 2018',
+    //     duration: 90,
+    //     repoInstanceUrl: 'https://github.com',
+    //     chatUrl: 'https://github.com',
+    //     organizationId: 123
+    // },
 
-firebase.initializeApp(config);
 
-// Get a reference to the database service
-var database = firebase.database();
+// // GETTING appointments:
+// firebase.database().ref('appointments/test-org').orderByChild('start').once('value').then((obj) => {
+//   let out = []
+//   obj.forEach((x) => {
+//     out.push(x.val())
+//   })
+//   console.log(out)
+// })
 
-function createUser(organization, firstName, lastName, email) {
-  let userId = firebase.database().ref().child('users').push().key;
-  firebase.database().ref('users/' + userId).set({
-    firstName: firstName,
-    lastName: lastName,
-    email: email
-  });
-}
 
-function createOrganization(name) {
-  let orgId = firebase.database().ref().child('organizations').push().key;
-}
+// // CREATING appointment:
+// firebase.database().ref('appointments/test-org' + id).set({
+//   organizationId: organizationId,
+//   candidateId: firstName,
+//   lastName: lastName,
+//   email: email
+// });
 
-function create
+// firebase.database().ref('appointments/test-org').once('value').then((obj) => {
+//   //console.log(obj.child('candidate').val())
+//   //console.log(obj.toJSON())
+//   console.log(obj.val())
+// })
 
-console.log("wrote.")
+

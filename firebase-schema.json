@@ -1,0 +1,92 @@
+{
+  "appointments" : {
+    "test-org" : {
+        "appointment_id_1": {
+            "assessment": {
+              "assessmentId": "-LLvvEXog8Jtbf6ZAYxp",
+              "label": "ABC assessment"
+            },
+            "candidate": {
+                "firstName": "bob",
+                "lastName": "dylan",
+                "email": "bob@poop.com"
+            },
+            "createdBy": {
+              "userId": "-LLvvHwAMB1yhLxoCjZV"
+            },
+            "start": 908908098,
+            "repoInstanceUrl": "https://github.com",
+            "chatUrl": "https://github.com",
+            "status": ""
+        },
+        "appointment_id_2": {
+            "assessment": {
+              "assessmentId": "-LLvvEXog8Jtbf6ZAYxp",
+              "label": "ABC assessment"
+            },
+            "candidate": {
+                "firstName": "bob",
+                "lastName": "dylan",
+                "email": "bob@poop.com"
+            },
+            "createdBy": {
+              "userId": "-LLvvHwAMB1yhLxoCjZV"
+            },
+            "start": 908908098,
+            "repoInstanceUrl": "https://github.com",
+            "chatUrl": "https://github.com",
+            "status": ""
+        }
+    }
+  },
+
+  "assessments": {
+      "-LLvvEXog8Jtbf6ZAYxp": {
+        "label": "ABC Assessment",
+        "description": "This is to assess you.",
+        "repoUrl": "https://github.com",
+        "duration": 90
+      }
+  },
+
+  "candidates": {
+    "test-org": {
+      "-LLvvEXog8Jtbf6ZAYxk": {
+        "firstName": "bob",
+        "lastName": "dylan",
+        "email": "bob@poop.com"
+      }
+    }
+  },
+
+  "organization": {
+    "id" : "test-org",
+    "label": "Salesforce-IT"
+  },
+
+  "users" : {
+    "test-org": {
+        "-LLvvEXog8Jtbf6ZAYx3" : {
+          "email" : "john@poop.com",
+          "firstName" : "KB",
+          "lastName" : "Appleseed",
+          "organizationId" : "test-org"
+        },
+        "-LLvvHwAMB1yhLxoCjZV" : {
+          "email" : "john@poop.com",
+          "firstName" : "John",
+          "lastName" : "Appleseed"
+        },
+        "-LLvvaKAyP-UlUVYZCMY" : {
+          "email" : "nguyen.dinh@poop.com",
+          "firstName" : "Nguyen",
+          "lastName" : "Dinh"
+        },
+        "-LLvvaKDfCZ3Qm6PhP7u" : {
+          "email" : "steven.jing@poop.com",
+          "firstName" : "Steven",
+          "lastName" : "Jin"
+        }
+    }
+  }
+}

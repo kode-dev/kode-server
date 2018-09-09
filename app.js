@@ -1,26 +1,15 @@
 const express = require('express');
 
-const routes = require('./routes/')
 
-const app = express();
+app = express();
+
 var session = require('express-session')
 const cors = require('cors')
 
 const bodyParser = require('body-parser');
 const logger = require('morgan');
-const mongoose = require('mongoose');
 
-let config = require('config'); //we load the db location from the JSON files
-//db options
-let options = {
-                server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
-                replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } }
-              };
-
-//db connection
-mongoose.connect(config.DBHost, options);
-let db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
+let config = require('config');
 
 //don't show the log when it is test
 if(config.util.getEnv('NODE_ENV') !== 'dev') {
@@ -40,8 +29,6 @@ app.use(session({
 //parse application/json and look for raw text
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.text());
-app.use(bodyParser.json({ type: 'application/json'}));
 
 // TODO: Understand why having this doesn't let me hit localhost:3000 and test the API!?
 
@@ -69,29 +56,35 @@ if(config.util.getEnv('NODE_ENV') !== 'test') {
 
 app.use(logger('dev'));
 
-app.use('/', routes)
+// app.use((req, res, next) => {
+//   console.log('About to send a Not Found error')
+//   const err = new Error('Not Found');
+//   err.status = 404;
+//   next(err);
+// });
 
-app.use((req, res, next) => {
-  console.log('About to send a Not Found error')
-  const err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
-
-app.use((err, req, res, next) => {
-  console.log('About to send the error: ' + err.message)
-  res.status(err.status || 500);
-  res.json({
-    error: {
-      message: err.message
-    }
-  });
-});
+// app.use((err, req, res, next) => {
+//   console.log('About to send the error: ' + err.message)
+//   res.status(err.status || 500);
+//   res.json({
+//     error: {
+//       message: err.message
+//     }
+//   });
+// });
 
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
   console.log(`Web server listening on: ${port}`);
 });
+
+
+const routes = require('./routes')
+const firebase = require('firebase');
+firebase.initializeApp(config.firebase);
+
+// Get a reference to the database service
+app.database = firebase.database();
 
 module.exports = app;
