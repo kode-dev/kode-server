@@ -1,0 +1,5 @@
+module.exports = {
+    DUMMY_CANDIDATE_ID: "5a89f1c851608a19beed4a39",
+    DUMMY_CODE_SNIPPET_ID: "5a89f1c851608a19beed4a08",
+    DEMO_CANDIDATE_ID: "5a89f1c851608a19beed4a29"
+}
