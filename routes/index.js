@@ -10,13 +10,19 @@ USER = {
 app.get('/appointments', function(req, res, next) {
     let orgId = USER.organizationId;
     let start = req.params ? req.params.start : null;
-    getAppointmentList(orgId, start).then((appointments) => 
-        res.send(appointments)
-    );
+    getAppointmentList(orgId, start).then((appointments) => {
+        out = []
+        appointments.forEach((x) => {
+            out.push({
+                key: x.key,
+                ...x.val()
+            })
+        })
+        return res.send(out)
+    });
 });
 // POST /appointments
 app.post('/appointments', function(req, res, next) {
-    console.log(req.body)
     const {
         candidate,
         assessmentId,
@@ -25,17 +31,26 @@ app.post('/appointments', function(req, res, next) {
     } = req.body;
     const orgId = USER.organizationId;
     const createdById = USER.userId;
-    createAppointment(orgId, candidate, assessmentId, createdById, start, duration).then((appointment) => 
-        res.send(appointment.key)
-    );
+    createAppointment(orgId, candidate, assessmentId, createdById, start, duration).then((appointment) => {
+        res.send({
+            key: appointment.key,
+            ...appointment.val()
+        })
+    });
 });
 
 // GET /assessments
 app.get('/assessments', function(req, res, next) {
-    let orgId = USER.organizationId;
-    getAssessmentList(orgId).then((assessments) => 
-        res.send(assessments)
-    );
+    getAssessmentList().then((assessments) => {
+        out = []
+        assessments.forEach((x) => {
+            out.push({
+                key: x.key,
+                ...x.val()
+            })
+        })
+        return res.send(out)
+    });
 });
 
 function createUser(organizationId, firstName, lastName, email) {
@@ -93,11 +108,9 @@ function createAppointment(organizationId, candidate, assessmentId, createdById,
         if (duration) {
             appointment.duration = duration;
         }
-
-
         return app.database.ref(`appointments/${organizationId}`).push(
-            
-        );
+            appointment
+        ).once('value');
     });
 }
 
@@ -110,9 +123,8 @@ function getAppointmentList(organizationId, start) {
 }
 
 
-function getAssessmentList(organizationId) {
+function getAssessmentList() {
     let ref = app.database.ref('assessments');
     return ref.once('value');
 }
-
 
