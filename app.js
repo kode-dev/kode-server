@@ -80,7 +80,7 @@ app.listen(port, () => {
 });
 
 
-const routes = require('./routes')
+require('./routes');
 const firebase = require('firebase');
 firebase.initializeApp(config.firebase);
 
