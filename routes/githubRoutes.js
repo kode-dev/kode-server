@@ -1,14 +1,13 @@
 const shell = require('shelljs');
-// const dotenv = require('dotenv');
-// dotenv.load();
+const config = require('config');
 
 // https://github.com/pksunkara/octonode
 // Rate limit: 5000 calls per hour
 const github = require('octonode');
-const client = github.client(process.env.GITHUB_ACCESS_TOKEN);
-const ghOrg = client.org(process.env.GITHUB_ORGANIZATION);
+const client = github.client(config.get('github.access_token'));
+const ghOrg = client.org(config.get('github.organization_name'));
 
-const Utils = require('./utils')({ ghOrg, shell });
+const Utils = require('../repoUtils')({ ghOrg, shell });
 
 // Generate repo for candidate
 app.post('/generate_assessment', async function (req, res) {
