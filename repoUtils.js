@@ -19,7 +19,6 @@ module.exports = function({ ghOrg, shell }) {
       shellExec(shell, 'git init');
       shellExec(shell, 'git add .');
       shellExec(shell, 'git commit -m "Add test assessment"');
-      // RIGHT HERE
       shellExec(shell, `git remote add origin ${url}`);
       shellExec(shell, 'git push -u origin master');
 
