@@ -25,7 +25,8 @@
     "uniqid": "*",
     "cors": "*",
     "mixpanel": "*",
-    "firebase": "*"
+    "firebase": "*",
+    "node-schedule": "*"
   },
   "devDependencies": {
     "eslint": "^3.19.0",

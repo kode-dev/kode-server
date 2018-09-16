@@ -1,4 +1,5 @@
-const _ = require('lodash');
+import _ from 'lodash';
+import repoUtils from 'utils/repoUtils';
 
 // this is a placeholder user until we have auth working.
 USER = {
@@ -90,11 +91,13 @@ function createCandidate(organizationId, firstName, lastName, email) {
     // },
 function createAppointment(organizationId, candidate, assessmentId, createdById, start, duration) {
     const repoInstanceUrl = null; // TODO: Generate clone here and set repoInstanceUrl on callback
+
     return app.database.ref(`assessments/${assessmentId}`).once('value').then((assessment) => {
         const appointment = {
             assessment: {
                 assessment_id: assessment.key,
-                label: assessment.child('label').val()
+                label: assessment.child('label').val(),
+                repoUrl: assessment.child('repoUrl').val()
             },
             candidate: candidate,
             createdBy: {
@@ -108,9 +111,20 @@ function createAppointment(organizationId, candidate, assessmentId, createdById,
         if (duration) {
             appointment.duration = duration;
         }
-        return app.database.ref(`appointments/${organizationId}`).push(
+
+        const ref = app.database.ref(`appointments/${organizationId}`).push(
             appointment
-        ).once('value');
+        );
+
+        ref.on('value', (changedAppointment) => {
+            repoUtils.updateAppointment(changedAppointment);
+        });
+
+        return ref.once('value').then((appointment) => {
+            if (appointment.val().start) {
+                repoUtils.updateAppointment(appointment);
+            }
+        });
     });
 }
 
