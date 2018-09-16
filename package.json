@@ -23,6 +23,7 @@
     "mocha": "^5.0.0",
     "mongoose": "^5.0.0",
     "morgan": "^1.8.1",
+    "octonode": "^0.9.4",
     "prismjs": "*",
     "shelljs": "^0.8.2",
     "uniqid": "*",
